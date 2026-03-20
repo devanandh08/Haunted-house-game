@@ -5,7 +5,7 @@ const CANVAS_W = canvas.width;
 const CANVAS_H = canvas.height;
 
 // --- State ---
-let player, ghosts, itemManager, keys, score, elapsed, gameState;
+let player, ghosts, itemManager, keys, score, elapsed, gameState, footstepTimer;
 
 function init() {
   player      = new Player();
@@ -15,6 +15,8 @@ function init() {
   score       = 0;
   elapsed     = 0;
   gameState   = 'playing'; // playing | won | lost
+  Audio.ambience(); 
+  footstepTimer = 0;
 }
 
 // --- Input ---
@@ -119,6 +121,15 @@ function loop(ts) {
     score = Math.floor(elapsed * 10);
     if (toastTimer > 0) toastTimer -= dt;
 
+  // footstep sound when moving
+  footstepTimer -= dt;
+  if (footstepTimer <= 0) {
+    const moving = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','a','d','w','s','A','D','W','S']
+      .some(k => keys[k]);
+    if (moving) { Audio.footstep(); footstepTimer = 0.3; }
+    else footstepTimer = 0.1;
+  }
+
     player.update(dt, keys);
     itemManager.update(dt);
     itemManager.tryPickup(player);
@@ -126,11 +137,19 @@ function loop(ts) {
 
     // ghost contact
     ghosts.forEach(g => {
-      if (g.repelTimer > 0 || g.frozenTimer > 0) return;
       const dx = g.x - player.x, dy = g.y - player.y;
-      if (Math.sqrt(dx * dx + dy * dy) < 20) {
-        player.takeDamage(18);
-        if (player.sanity <= 0) gameState = 'lost';
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 90 && g.repelTimer <= 0 && g.frozenTimer <= 0) {
+        if (dist < 20) {
+          const wasAlive = player.sanity > 0;
+          player.takeDamage(18);
+          if (wasAlive && player.invincibleTimer > 1.1) Audio.playerHit();
+          if (player.sanity <= 0) { gameState = 'lost'; Audio.gameOver(); }
+        } else {
+          // ghost nearby pulse — throttled to every 2s
+          g._warnTimer = (g._warnTimer || 0) - dt;
+          if (g._warnTimer <= 0) { Audio.ghostNearby(); g._warnTimer = 2; }
+        }
       }
     });
 
@@ -138,6 +157,7 @@ function loop(ts) {
     if (isExit(player.x, player.y)) {
       score += 500;
       gameState = 'won';
+      Audio.win();
     }
   }
 

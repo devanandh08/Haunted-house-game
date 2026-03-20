@@ -41,6 +41,7 @@ class ItemManager {
         item.collected = true;
         if (this.inventory.length < 3) {
           this.inventory.push({ ...ITEM_TYPES[item.type], type: item.type });
+          Audio.pickup(); 
           showToast(`Picked up: ${ITEM_TYPES[item.type].label}!`);
         } else {
           showToast('Inventory full! (max 3 items)');
@@ -53,32 +54,33 @@ class ItemManager {
     if (this.inventory.length === 0) { showToast('No items!'); return; }
     const item = this.inventory[0];
     if (item.effect === 'repel') {
+      let hit = false;
       ghosts.forEach(g => {
         const dx = g.x - player.x, dy = g.y - player.y;
-        if (Math.sqrt(dx * dx + dy * dy) < 120) {
-          g.repelTimer = 3;
-          showToast('Salt thrown — ghost repelled!');
-        }
+        if (Math.sqrt(dx * dx + dy * dy) < 120) { g.repelTimer = 3; hit = true; }
       });
+      Audio.saltThrow();
+      if (hit) { Audio.ghostRepelled(); showToast('Salt thrown — ghost repelled!'); }
+      else showToast('Salt thrown! (no ghost nearby)');
     } else if (item.effect === 'freeze') {
       ghosts.forEach(g => {
         const dx = g.x - player.x, dy = g.y - player.y;
-        if (Math.sqrt(dx * dx + dy * dy) < 150) {
-          g.frozenTimer = 4;
-        }
+        if (Math.sqrt(dx * dx + dy * dy) < 150) g.frozenTimer = 4;
       });
+      Audio.trapSet();
+      Audio.ghostFrozen();
       showToast('Trap set — ghost frozen!');
     } else if (item.effect === 'burst') {
       ghosts.forEach(g => {
         const dx = g.x - player.x, dy = g.y - player.y;
-        if (Math.sqrt(dx * dx + dy * dy) < 200) {
-          g.repelTimer = 6;
-          g.frozenTimer = 1;
-        }
+        if (Math.sqrt(dx * dx + dy * dy) < 200) { g.repelTimer = 6; g.frozenTimer = 1; }
       });
+      Audio.holyWater();
+      Audio.ghostRepelled();
       showToast('Holy water burst!');
     } else if (item.effect === 'light') {
       player.flashlightTimer = 10;
+      Audio.flashlight();
       showToast('Flashlight on!');
     }
     item.uses--;
