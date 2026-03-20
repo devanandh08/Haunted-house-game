@@ -92,16 +92,55 @@ class Ghost {
 }
 
 const GHOST_DEFS = [
-  { x:  3*TILE_SIZE, y:  5*TILE_SIZE, patrol: [
-      {x:3*TILE_SIZE,y:5*TILE_SIZE},{x:5*TILE_SIZE,y:5*TILE_SIZE},{x:5*TILE_SIZE,y:1*TILE_SIZE}]},
-  { x: 20*TILE_SIZE, y:  3*TILE_SIZE, patrol: [
-      {x:20*TILE_SIZE,y:3*TILE_SIZE},{x:25*TILE_SIZE,y:3*TILE_SIZE},{x:25*TILE_SIZE,y:7*TILE_SIZE}]},
-  { x:  8*TILE_SIZE, y: 13*TILE_SIZE, patrol: [
-      {x:8*TILE_SIZE,y:13*TILE_SIZE},{x:12*TILE_SIZE,y:13*TILE_SIZE},{x:12*TILE_SIZE,y:9*TILE_SIZE}]},
-  { x: 17*TILE_SIZE, y: 19*TILE_SIZE, patrol: [
-      {x:17*TILE_SIZE,y:19*TILE_SIZE},{x:20*TILE_SIZE,y:19*TILE_SIZE},{x:20*TILE_SIZE,y:23*TILE_SIZE}]},
-  { x:  5*TILE_SIZE, y: 25*TILE_SIZE, patrol: [
-      {x:5*TILE_SIZE,y:25*TILE_SIZE},{x:9*TILE_SIZE,y:25*TILE_SIZE},{x:9*TILE_SIZE,y:29*TILE_SIZE}]},
-  { x: 25*TILE_SIZE, y: 25*TILE_SIZE, patrol: [
-      {x:25*TILE_SIZE,y:25*TILE_SIZE},{x:27*TILE_SIZE,y:25*TILE_SIZE},{x:27*TILE_SIZE,y:29*TILE_SIZE}]},
+  // top-left chamber
+  { x: 4*TILE_SIZE, y: 2*TILE_SIZE, patrol: [
+    {x:1*TILE_SIZE, y:1*TILE_SIZE},
+    {x:8*TILE_SIZE, y:1*TILE_SIZE},
+    {x:8*TILE_SIZE, y:5*TILE_SIZE},
+    {x:1*TILE_SIZE, y:5*TILE_SIZE},
+  ]},
+  // top-right chamber
+  { x: 28*TILE_SIZE, y: 3*TILE_SIZE, patrol: [
+    {x:24*TILE_SIZE, y:1*TILE_SIZE},
+    {x:34*TILE_SIZE, y:1*TILE_SIZE},
+    {x:34*TILE_SIZE, y:5*TILE_SIZE},
+    {x:24*TILE_SIZE, y:5*TILE_SIZE},
+  ]},
+  // middle corridor
+  { x: 10*TILE_SIZE, y: 11*TILE_SIZE, patrol: [
+    {x:1*TILE_SIZE,  y:11*TILE_SIZE},
+    {x:13*TILE_SIZE, y:11*TILE_SIZE},
+    {x:13*TILE_SIZE, y:8*TILE_SIZE},
+  ]},
+  // middle-right corridor
+  { x: 28*TILE_SIZE, y: 18*TILE_SIZE, patrol: [
+    {x:25*TILE_SIZE, y:15*TILE_SIZE},
+    {x:34*TILE_SIZE, y:15*TILE_SIZE},
+    {x:34*TILE_SIZE, y:20*TILE_SIZE},
+    {x:25*TILE_SIZE, y:20*TILE_SIZE},
+  ]},
+  // lower inner chamber
+  { x: 14*TILE_SIZE, y: 38*TILE_SIZE, patrol: [
+    {x:11*TILE_SIZE, y:33*TILE_SIZE},
+    {x:19*TILE_SIZE, y:33*TILE_SIZE},
+    {x:19*TILE_SIZE, y:42*TILE_SIZE},
+    {x:11*TILE_SIZE, y:42*TILE_SIZE},
+  ]},
+  // bottom hallway
+  { x: 17*TILE_SIZE, y: 47*TILE_SIZE, patrol: [
+    {x:1*TILE_SIZE,  y:47*TILE_SIZE},
+    {x:34*TILE_SIZE, y:47*TILE_SIZE},
+  ]},
+  // bottom-left room
+  { x: 5*TILE_SIZE, y: 51*TILE_SIZE, patrol: [
+    {x:4*TILE_SIZE,  y:49*TILE_SIZE},
+    {x:7*TILE_SIZE,  y:49*TILE_SIZE},
+    {x:7*TILE_SIZE,  y:53*TILE_SIZE},
+    {x:4*TILE_SIZE,  y:53*TILE_SIZE},
+  ]},
+  // guarding the exit
+  { x: 30*TILE_SIZE, y: 53*TILE_SIZE, patrol: [
+    {x:25*TILE_SIZE, y:54*TILE_SIZE},
+    {x:33*TILE_SIZE, y:54*TILE_SIZE},
+  ]},
 ];

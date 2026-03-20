@@ -4,22 +4,21 @@ const ITEM_TYPES = {
   TRAP:       { label: 'Trap',       color: '#34d399', effect: 'freeze', uses: 1 },
   HOLYWATER:  { label: 'Holy Water', color: '#60a5fa', effect: 'burst',  uses: 2 },
 };
-
 const ITEM_SPAWNS = [
-  { type: 'SALT',       col: 3,  row: 1  },
-  { type: 'FLASHLIGHT', col: 12, row: 3  },
-  { type: 'TRAP',       col: 5,  row: 7  },
-  { type: 'HOLYWATER',  col: 20, row: 5  },
-  { type: 'SALT',       col: 8,  row: 11 },
-  { type: 'FLASHLIGHT', col: 25, row: 9  },
-  { type: 'TRAP',       col: 15, row: 15 },
-  { type: 'HOLYWATER',  col: 3,  row: 19 },
-  { type: 'SALT',       col: 22, row: 17 },
-  { type: 'TRAP',       col: 10, row: 23 },
-  { type: 'SALT',       col: 27, row: 21 },
-  { type: 'HOLYWATER',  col: 17, row: 27 },
+  { type: 'FLASHLIGHT', col: 6,  row: 3  },  // top-left chamber
+  { type: 'SALT',       col: 28, row: 2  },  // top-right chamber
+  { type: 'SALT',       col: 5,  row: 10 },  // mid-left corridor
+  { type: 'TRAP',       col: 20, row: 11 },  // mid corridor
+  { type: 'HOLYWATER',  col: 30, row: 17 },  // mid-right chamber
+  { type: 'FLASHLIGHT', col: 12, row: 25 },  // lower corridor
+  { type: 'SALT',       col: 25, row: 25 },  // lower corridor
+  { type: 'TRAP',       col: 14, row: 35 },  // inner chamber
+  { type: 'HOLYWATER',  col: 24, row: 38 },  // inner chamber
+  { type: 'SALT',       col: 5,  row: 47 },  // bottom hall
+  { type: 'TRAP',       col: 20, row: 50 },  // bottom rooms
+  { type: 'HOLYWATER',  col: 12, row: 51 },  // bottom rooms
+  { type: 'SALT',       col: 30, row: 47 },  // near exit
 ];
-
 class ItemManager {
   constructor() {
     this.items = ITEM_SPAWNS.map(s => ({
