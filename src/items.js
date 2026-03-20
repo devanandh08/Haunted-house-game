@@ -6,14 +6,18 @@ const ITEM_TYPES = {
 };
 
 const ITEM_SPAWNS = [
-  { type: 'SALT',       col: 2,  row: 2  },
-  { type: 'FLASHLIGHT', col: 8,  row: 2  },
-  { type: 'TRAP',       col: 14, row: 2  },
-  { type: 'HOLYWATER',  col: 17, row: 7  },
-  { type: 'SALT',       col: 6,  row: 9  },
-  { type: 'TRAP',       col: 11, row: 12 },
-  { type: 'HOLYWATER',  col: 3,  row: 13 },
-  { type: 'SALT',       col: 16, row: 13 },
+  { type: 'SALT',       col: 2,  row: 2  },   // entry hall
+  { type: 'FLASHLIGHT', col: 9,  row: 3  },   // living room
+  { type: 'SALT',       col: 16, row: 2  },   // library
+  { type: 'TRAP',       col: 22, row: 3  },   // attic
+  { type: 'HOLYWATER',  col: 2,  row: 10 },   // kitchen
+  { type: 'SALT',       col: 10, row: 8  },   // dining room
+  { type: 'TRAP',       col: 16, row: 10 },   // study
+  { type: 'HOLYWATER',  col: 23, row: 9  },   // secret passage
+  { type: 'FLASHLIGHT', col: 3,  row: 16 },   // basement
+  { type: 'SALT',       col: 8,  row: 18 },   // boiler room
+  { type: 'TRAP',       col: 15, row: 15 },   // exit corridor
+  { type: 'HOLYWATER',  col: 21, row: 22 },   // near exit
 ];
 
 class ItemManager {
