@@ -17,15 +17,46 @@ class Player {
 
     if (dx !== 0 && dy !== 0) { dx *= 0.707; dy *= 0.707; }
 
-    const nx = this.x + dx * this.speed * dt;
-    const ny = this.y + dy * this.speed * dt;
-    const pad = 10;
+    const speed = this.speed * dt;
+    const r = 10; // player radius — must match wall check below
 
-    if (!isWall(nx + pad, this.y) && !isWall(nx - pad, this.y)) this.x = nx;
-    if (!isWall(this.x, ny + pad) && !isWall(this.x, ny - pad)) this.y = ny;
+    // move X axis first, then Y separately so we slide along walls
+    const nx = this.x + dx * speed;
+    if (!this._collides(nx, this.y, r)) {
+      this.x = nx;
+    } else {
+      // try to slide — snap to wall edge
+      this.x = dx > 0
+        ? Math.floor((nx + r) / TILE_SIZE) * TILE_SIZE - r - 0.5
+        : Math.ceil((nx  - r) / TILE_SIZE) * TILE_SIZE + r + 0.5;
+    }
 
-    if (this.flashlightTimer > 0) this.flashlightTimer -= dt;
-    if (this.invincibleTimer > 0) this.invincibleTimer -= dt;
+    const ny = this.y + dy * speed;
+    if (!this._collides(this.x, ny, r)) {
+      this.y = ny;
+    } else {
+      this.y = dy > 0
+        ? Math.floor((ny + r) / TILE_SIZE) * TILE_SIZE - r - 0.5
+        : Math.ceil((ny  - r) / TILE_SIZE) * TILE_SIZE + r + 0.5;
+    }
+
+    if (this.flashlightTimer  > 0) this.flashlightTimer  -= dt;
+    if (this.invincibleTimer  > 0) this.invincibleTimer  -= dt;
+  }
+
+  // check all 4 corners + 4 edge midpoints of the player circle
+  _collides(px, py, r) {
+    const points = [
+      [px - r, py - r], // top-left
+      [px + r, py - r], // top-right
+      [px - r, py + r], // bottom-left
+      [px + r, py + r], // bottom-right
+      [px,     py - r], // top-mid
+      [px,     py + r], // bottom-mid
+      [px - r, py    ], // left-mid
+      [px + r, py    ], // right-mid
+    ];
+    return points.some(([x, y]) => isWall(x, y));
   }
 
   takeDamage(amount) {

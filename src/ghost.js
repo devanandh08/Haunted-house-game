@@ -41,12 +41,25 @@ class Ghost {
       }
     }
   }
-
   _move(dx, dy) {
-    const nx = this.x + dx, ny = this.y + dy;
-    const pad = 10;
-    if (!isWall(nx + pad, this.y) && !isWall(nx - pad, this.y)) this.x = nx;
-    if (!isWall(this.x, ny + pad) && !isWall(this.x, ny - pad)) this.y = ny;
+    const r = 10;
+    const nx = this.x + dx;
+    const ny = this.y + dy;
+
+    const canX = ![ 
+      [nx + r, this.y], [nx - r, this.y],
+      [nx + r, this.y - r], [nx - r, this.y - r],
+      [nx + r, this.y + r], [nx - r, this.y + r],
+    ].some(([x, y]) => isWall(x, y));
+
+    const canY = ![
+      [this.x, ny + r], [this.x, ny - r],
+      [this.x - r, ny + r], [this.x - r, ny - r],
+      [this.x + r, ny + r], [this.x + r, ny - r],
+    ].some(([x, y]) => isWall(x, y));
+
+    if (canX) this.x = nx;
+    if (canY) this.y = ny;
   }
 
   draw(ctx, cameraX, cameraY) {
