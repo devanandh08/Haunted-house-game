@@ -26,6 +26,9 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
     itemManager.useItem(ghosts, player);
   }
+  if ((e.key === 'q' || e.key === 'Q') && gameState === 'playing') {
+    itemManager.cycleSelected();          // ← add this
+  }
   if (e.key === 'Enter' && gameState !== 'playing') init();
 });
 document.addEventListener('keyup', e => keys[e.key] = false);
@@ -65,21 +68,7 @@ function drawHUD() {
   document.getElementById('timer').textContent = Math.floor(elapsed);
 
   // inventory
-  ctx.fillStyle = 'rgba(0,0,0,0.55)';
-  ctx.fillRect(8, CANVAS_H - 50, 200, 42);
-  ctx.fillStyle = '#888';
-  ctx.font = '11px monospace';
-  ctx.textAlign = 'left';
-  ctx.fillText('INVENTORY (SPACE to use):', 14, CANVAS_H - 34);
-  itemManager.inventory.forEach((item, i) => {
-    ctx.fillStyle = item.color;
-    ctx.fillText(`[${i + 1}] ${item.label} x${item.uses}`, 14, CANVAS_H - 18);
-    if (i === 0) return; // only show first slot detail
-  });
-  if (itemManager.inventory.length === 0) {
-    ctx.fillStyle = '#555';
-    ctx.fillText('empty', 14, CANVAS_H - 18);
-  }
+  itemManager.drawHUDInventory(ctx, CANVAS_W, CANVAS_H);
 
   // toast
   if (toastTimer > 0) {
