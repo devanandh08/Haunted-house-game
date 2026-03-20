@@ -1,7 +1,7 @@
 class Player {
   constructor() {
     this.x = 2 * TILE_SIZE + TILE_SIZE / 2;
-    this.y = 2 * TILE_SIZE + TILE_SIZE / 2;
+    this.y = 3 * TILE_SIZE + TILE_SIZE / 2;
     this.speed = 110;
     this.sanity = 100;
     this.flashlightTimer = 0;
