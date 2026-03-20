@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ghost Escape</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: monospace;
+      color: #eee;
+    }
+    #ui {
+      display: flex;
+      gap: 32px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+    #sanity-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #sanity-bar {
+      width: 140px;
+      height: 10px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    #sanity-fill {
+      height: 100%;
+      width: 100%;
+      background: #7c3aed;
+      transition: width 0.2s;
+    }
+    canvas {
+      border: 1px solid #2a2a3a;
+      display: block;
+    }
+    #message {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div id="ui">
+    <span>GHOST ESCAPE</span>
+    <div id="sanity-bar-wrap">
+      <span>SANITY</span>
+      <div id="sanity-bar"><div id="sanity-fill"></div></div>
+    </div>
+    <span>SCORE: <span id="score">0</span></span>
+    <span>TIME: <span id="timer">0</span>s</span>
+  </div>
+  <canvas id="gameCanvas" width="640" height="480"></canvas>
+  <div id="message">WASD / arrow keys to move &nbsp;|&nbsp; SPACE to use item</div>
+
+  <script src="src/map.js"></script>
+  <script src="src/items.js"></script>
+  <script src="src/ghost.js"></script>
+  <script src="src/player.js"></script>
+  <script src="src/game.js"></script>
+</body>
+</html>

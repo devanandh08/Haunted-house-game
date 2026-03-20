@@ -100,4 +100,4 @@ class ItemManager {
       ctx.stroke();
     });
   }
-}
+} 
